@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeadController : MonoBehaviour {
 
-	public GameObject axe;
+	public GameObject target;
 	SpriteRenderer sr;
 	public float angle;
 
@@ -16,16 +16,18 @@ public class HeadController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Vector3 dir =  transform.position - axe.transform.position;
+		if(target != null){
+			Vector3 dir =  transform.position - target.transform.position;
 
-		angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
+			angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
 
-		if (angle > 90 || angle < -90) {
-			sr.flipY = true;
-		} else {
-			sr.flipY = false;
+			if (angle > 90 || angle < -90) {
+				sr.flipY = true;
+			} else {
+				sr.flipY = false;
+			}
+
+			transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 		}
-
-		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 	}
 }
